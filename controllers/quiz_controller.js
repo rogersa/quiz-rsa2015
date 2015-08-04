@@ -35,8 +35,22 @@ exports.answer = function(req,res){
 };
 
 exports.index = function(req,res){
-models.Quiz.findAll().then(function(quizes){ 
+
+    models.Quiz.findAll().then(function(quizes){ 
     res.render('quizes/index.ejs',{quizes:quizes});
-})
+    })
 
 };
+
+exports.search = function(req,res){
+  
+  if(req.query.search)
+  {
+   
+    models.Quiz.findAll({where:["pregunta LIKE ?","%"+req.query.search.toLowerCase().replace("%"," ")+"%"]}).then(function(result){ 
+    res.render('quizes/busqueda',{result:result});})
+  }
+
+};
+
+
