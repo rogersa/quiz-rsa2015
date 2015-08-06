@@ -42,6 +42,21 @@ exports.index = function(req,res){
 
 };
 
+exports.new = function(req,res){
+ var quiz =models.Quiz.build({pregunta:"Pregunta",respuesta: "Respuesta"});
+    res.render('quizes/new',{quiz:quiz});
+}
+
+exports.create = function(req,res){
+ var quiz = models.Quiz.build(req.body.quiz);
+    console.log("Valor create: "+quiz);
+ quiz.save({fields:["pregunta","respuesta"]}).then(
+ function(){
+ res.redirect("/quizes");
+ })
+    
+}
+
 exports.search = function(req,res){
   
   if(req.query.search)
