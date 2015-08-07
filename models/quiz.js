@@ -6,7 +6,11 @@ return sequelize.define('Quiz',
             },
   respuesta: { 
                type: DataTypes.STRING,
-               validate:{notEmpty:{msg: "---> Falta Respuesta"}}
+               validate:{notEmpty:{msg: "--> Falta Respuesta"}}
+             },
+  tematica: { 
+               type: DataTypes.STRING,
+               validate:{notEmpty:{msg: "--> Falta Tematica"}}
              }
 }
 );

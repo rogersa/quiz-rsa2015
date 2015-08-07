@@ -43,8 +43,10 @@ exports.index = function(req,res){
 
 };
 
+// Creacion de quizes
+
 exports.new = function(req,res){
- var quiz =models.Quiz.build({pregunta:"Pregunta",respuesta: "Respuesta"});
+ var quiz =models.Quiz.build({pregunta:"Pregunta",respuesta: "Respuesta",tematica:"Tematica"});
     res.render('quizes/new',{quiz:quiz,errors:[]});
 }
 
@@ -60,13 +62,14 @@ exports.create = function(req,res){
          else 
          {
            quiz
-           .save({fields:["pregunta","respuesta"]})
+           .save({fields:["pregunta","respuesta","tematica"]})
            .then(function(){res.redirect("/quizes");})
          }
        }
  );
 };
 
+///Edicion de quizes 
 exports.edit= function(req,res)
 {
    var quiz =req.quiz;
@@ -75,14 +78,14 @@ exports.edit= function(req,res)
 exports.update = function(req,res){
 req.quiz.pregunta = req.body.quiz.pregunta;
 req.quiz.respuesta = req.body.quiz.respuesta;
-
+req.quiz.tematica = req.body.quiz.tematica;
     req.quiz.validate().then(
     function(err){
         if(err){     
         res.render('quizes/edit',{quiz:req.quiz,errors:err.errors});}
         else{
         req.quiz
-        .save({fields:["pregunta","respuesta"]})
+        .save({fields:["pregunta","respuesta","tematica"]})
         .then(function(){res.redirect('/quizes');});
         }
     }
@@ -106,6 +109,10 @@ exports.search = function(req,res){
     models.Quiz.findAll({where:["pregunta LIKE ?","%"+req.query.search.toLowerCase().replace("%"," ")+"%"]}).then(function(result){ 
     res.render('quizes/busqueda',{result:result,errors:[]});})
   }
+  else
+  {
+    ///console.log("Entro AAAAAAAAAAAAAAAA");
+  }    
 
 };
 

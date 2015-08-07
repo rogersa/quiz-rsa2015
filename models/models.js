@@ -37,8 +37,8 @@ sequelize.sync().then(function(){
     Quiz.count().then(function (count){
     
         if(count === 0){
-         Quiz.create({ pregunta : 'Capital de Italia',respuesta: 'Roma'});   
-         Quiz.create({ pregunta : 'Capital de Portugal',respuesta: 'Lisboa'}).then(function(){console.log('Base de Datos Inicialiazada')});
+         Quiz.create({ pregunta : 'Capital de Italia',respuesta: 'Roma',tematica : "Humanidades"});   
+         Quiz.create({ pregunta : 'Capital de Portugal',respuesta: 'Lisboa',tematica : "Humanidades"}).then(function(){console.log('Base de Datos Inicialiazada')});
         };
     });
 });
