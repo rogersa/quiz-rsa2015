@@ -90,13 +90,21 @@ req.quiz.respuesta = req.body.quiz.respuesta;
     );
 };
 
+exports.destroy = function(req,res)
+{
+   req.quiz.destroy().then(function (){
+   
+       res.redirect('/quizes');
+   }).catch(function (error){ next(error)});
+};
+
 exports.search = function(req,res){
   
   if(req.query.search)
   {
    
     models.Quiz.findAll({where:["pregunta LIKE ?","%"+req.query.search.toLowerCase().replace("%"," ")+"%"]}).then(function(result){ 
-    res.render('quizes/busqueda',{result:result});})
+    res.render('quizes/busqueda',{result:result,errors:[]});})
   }
 
 };
