@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var quizController= require('../controllers/quiz_controller');
+var commentController= require('../controllers/comment_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -19,8 +20,11 @@ router.put('/quizes/:quizId(\\d+)', quizController.update);
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
 router.get('/quizes/busqueda',quizController.search);
 
+router.get('/quizes/:quizId(\\d+)/comments/new',commentController.new);
+router.post('/quizes/:quizId(\\d+)/comments',commentController.create);
+
 router.get('/author',function(req, res) {
-  res.render('author', { nom_author: 'Roger Soto Aiza' });
+  res.render('author', { nom_author: 'Roger Soto Aiza' ,errors:[]});
 });
 
 module.exports = router;
